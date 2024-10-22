@@ -1,0 +1,27 @@
+zbiór_średnich_10 = NULL
+zbiór_średnich_20 = NULL
+zbiór_średnich_100 = NULL
+n = 100000 #wielkość populacji
+populacja = rnorm(n,mean=100,sd=10) 
+k = 1000 #liczba losowań
+for (i in 1:k) {
+  y1 = sample(1:n, 10)
+  y2 = sample(1:n, 20)
+  y3 = sample(1:n, 100)
+  result10.mean = mean(populacja[y1])
+  result20.mean = mean(populacja[y2])
+  result100.mean = mean(populacja[y3])
+  zbiór_średnich_10 = c(zbiór_średnich_10, result10.mean)
+  zbiór_średnich_20 = c(zbiór_średnich_20, result20.mean)
+  zbiór_średnich_100 = c(zbiór_średnich_100, result100.mean)
+}
+maks = ceiling(max(zbiór_średnich_10)/5)*5
+mi = floor(min(zbiór_średnich_10)/5)*5
+
+histogram10 = hist(zbiór_średnich_10, col=rgb(190/255,214/255,0,1/4),breaks=seq(mi,maks,by=(maks-mi)/100),xlim=c(mi,maks),ylim=c(0,150), main = "Histogram 10")
+
+histogram20 = hist(zbiór_średnich_20, col=rgb(105/255,190/255,40/255,1/4),breaks=seq(mi,maks,by=(maks-mi)/100),xlim=c(mi,maks),ylim=c(0,150), add=TRUE, main = "Histogram 20")
+
+histogram100 = hist(zbiór_średnich_100, col=rgb(0/255,133/255,66/255,1/4),breaks=seq(mi,maks,by=(maks-mi)/100),xlim=c(mi,maks),ylim=c(0,150), add=TRUE, main = "Histogram 100")
+
+abline(v = mean(populacja), col = "red") #oznaczenie prawdziwej średniej
